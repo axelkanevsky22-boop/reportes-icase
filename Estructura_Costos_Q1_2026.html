@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Estructura de Costos Q1 2026 — The Icase</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Segoe UI', Arial, sans-serif; background: #f0f2f5; color: #1a1a2e; }
+
+  header { background: linear-gradient(135deg, #1a237e 0%, #283593 100%); color: white; padding: 20px 32px; }
+  header h1 { font-size: 1.4rem; font-weight: 700; }
+  header p { font-size: 0.82rem; opacity: .75; margin-top: 3px; }
+
+  .controls { background: white; padding: 14px 32px; border-bottom: 1px solid #e0e0e0; display: flex; align-items: center; gap: 20px; flex-wrap: wrap; }
+  .controls label { font-size: 0.82rem; font-weight: 600; color: #555; }
+  select { padding: 7px 12px; border: 1.5px solid #c5cae9; border-radius: 6px; font-size: 0.85rem; background: white; color: #1a237e; cursor: pointer; min-width: 220px; }
+  select:focus { outline: none; border-color: #3949ab; }
+  .badge { font-size: 0.72rem; background: #e8eaf6; color: #3949ab; padding: 3px 8px; border-radius: 12px; font-weight: 600; }
+
+  .main { padding: 24px 32px; }
+
+  .table-wrap { background: white; border-radius: 10px; overflow: hidden; box-shadow: 0 2px 8px rgba(0,0,0,.08); margin-bottom: 24px; }
+
+  table { width: 100%; border-collapse: collapse; font-size: 0.84rem; }
+  th { background: #1a237e; color: white; padding: 11px 14px; text-align: right; font-weight: 600; font-size: 0.78rem; letter-spacing: .3px; white-space: nowrap; }
+  th:first-child { text-align: left; min-width: 200px; }
+
+  td { padding: 9px 14px; text-align: right; border-bottom: 1px solid #f0f0f0; white-space: nowrap; }
+  td:first-child { text-align: left; font-weight: 500; }
+
+  tr:hover td { background: #f5f7ff; }
+
+  .row-section td:first-child { padding-left: 14px; font-weight: 700; font-size: 0.8rem; letter-spacing: .5px; color: #5c6bc0; text-transform: uppercase; background: #f3f4fd; }
+  .row-section td { background: #f3f4fd; border-bottom: none; }
+
+  .row-total td { background: #e8eaf6; font-weight: 700; }
+  .row-total td:first-child { color: #1a237e; }
+  .row-grand td { background: #1a237e; color: white; font-weight: 700; border-bottom: none; }
+  .row-net td { background: #e8f5e9; font-weight: 700; color: #2e7d32; }
+  .row-net.neg td { background: #ffebee; color: #c62828; }
+
+  .row-expandable td:first-child { cursor: pointer; user-select: none; }
+  .row-expandable td:first-child::before { content: '▶ '; font-size: 0.7rem; color: #7986cb; }
+  .row-expandable.open td:first-child::before { content: '▼ '; }
+
+  .row-detail td { background: #fafbff; font-size: 0.79rem; color: #444; }
+  .row-detail td:first-child { padding-left: 32px; color: #555; font-weight: 400; }
+  .row-detail.ni td:first-child { padding-left: 32px; color: #7986cb; font-style: italic; }
+  .row-detail { display: none; }
+  .row-detail.visible { display: table-row; }
+
+  .pct { color: #888; font-size: 0.77rem; }
+  .pct.red { color: #e53935; }
+  .pct.green { color: #43a047; }
+
+  .tend { display: inline-flex; align-items: center; gap: 4px; font-size: 0.75rem; padding: 2px 8px; border-radius: 10px; font-weight: 600; }
+  .tend.better { background: #e8f5e9; color: #2e7d32; }
+  .tend.worse  { background: #ffebee; color: #c62828; }
+  .tend.flat   { background: #f5f5f5; color: #757575; }
+  .tend.var    { background: #fff3e0; color: #e65100; }
+
+  .note { font-size: 0.74rem; color: #888; padding: 10px 14px; border-top: 1px dashed #e0e0e0; }
+  .note b { color: #555; }
+
+  .section-title { font-size: 0.95rem; font-weight: 700; color: #1a237e; margin: 24px 0 10px; display: flex; align-items: center; gap: 8px; }
+  .section-title::after { content: ''; flex: 1; height: 1px; background: #c5cae9; }
+
+  .alert-box { background: #fff8e1; border: 1px solid #ffe082; border-radius: 8px; padding: 10px 14px; font-size: 0.79rem; color: #5d4037; margin-bottom: 16px; }
+  .alert-box b { color: #e65100; }
+
+  @media (max-width: 900px) {
+    .main { padding: 12px 8px; }
+    .controls { padding: 12px 8px; }
+    th, td { padding: 7px 8px; font-size: 0.76rem; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>📋 Estructura de Costos — Evolución Q1 2026</h1>
+  <p>The Icase · Enero, Febrero y Marzo 2026 · Desglose por componente con drill-down</p>
+</header>
+
+<div class="controls">
+  <label>📍 Visión por local:</label>
+  <select id="storeSelect" onchange="render()">
+    <option value="__network__">🏢 Red Total (consolidado)</option>
+  </select>
+  <span class="badge" id="storeBadge">Red Total</span>
+</div>
+
+<div class="main">
+  <div id="alertBox" class="alert-box" style="display:none"></div>
+  <div class="table-wrap">
+    <table id="mainTable">
+      <thead>
+        <tr>
+          <th>Componente de Costo</th>
+          <th>Enero $</th><th>Ene %</th>
+          <th>Febrero $</th><th>Feb %</th>
+          <th>Marzo $</th><th>Mar %</th>
+          <th>Tendencia</th>
+        </tr>
+      </thead>
+      <tbody id="mainBody"></tbody>
+    </table>
+    <div class="note" id="tableNote"></div>
+  </div>
+
+  <div class="section-title">🔍 Detalle RRHH — Red Total</div>
+  <div class="table-wrap">
+    <table>
+      <thead>
+        <tr>
+          <th style="text-align:left">Clasificación</th>
+          <th>Enero $M</th><th>Febrero $M</th><th>Marzo $M</th><th>Tendencia E→M</th>
+        </tr>
+      </thead>
+      <tbody id="rrhh_body"></tbody>
+    </table>
+    <div class="note">Incluye costos directos imputados a locales + partidas N/I (marcadas en <i>cursiva</i>)</div>
+  </div>
+
+  <div class="section-title">🔍 Detalle GNI — Red Total</div>
+  <div class="table-wrap">
+    <table>
+      <thead>
+        <tr>
+          <th style="text-align:left">Rubro — Clasificación</th>
+          <th>Enero $M</th><th>Febrero $M</th><th>Marzo $M</th><th>Tendencia E→M</th>
+        </tr>
+      </thead>
+      <tbody id="gni_body"></tbody>
+    </table>
+    <div class="note">GNI = costos no imputables a locales específicos (excluye Compras/CMV). Incluye Administración, IT, Logística, Marketing, Tercerizados, Servicios y partidas N/I de RRHH e Impuestos.</div>
+  </div>
+</div>
+
+<script>
+const DATA = {"network":{"ene":{"ventas":1420.3,"cmv":379.6,"alq":266.4,"rrhh":351.6,"bancos":73.8,"imp":22.5,"gni":220.7,"un":128.2},"feb":{"ventas":1292.3,"cmv":327.2,"alq":246.6,"rrhh":310.9,"bancos":73.2,"imp":22.5,"gni":205.7,"un":128.7},"mar":{"ventas":1498.7,"cmv":370.1,"alq":335.2,"rrhh":188.4,"bancos":72.2,"imp":22.5,"gni":313.9,"un":185.9}},"stores":{"ECOM":{"ene":{"ventas":0.0,"alq":0.0,"rrhh":0.0,"bancos":0.0,"imp":0.0},"feb":{"ventas":0.0,"alq":0.0,"rrhh":0.0,"bancos":0.0,"imp":0.0},"mar":{"ventas":0.113,"cmv":1.32,"alq":0.0,"rrhh":0.0,"bancos":0.0,"imp":0.0}},"FIXSTATION ABASTO":{"ene":{"ventas":0.0,"alq":5.783,"rrhh":1.652,"bancos":1.332,"imp":0.0},"feb":{"ventas":0.0,"alq":5.947,"rrhh":5.019,"bancos":0.0,"imp":0.0},"mar":{"ventas":0.0,"cmv":10.221,"alq":12.415,"rrhh":5.651,"bancos":1.978,"imp":0.844}},"FIXSTATION ALTOAVELLANEDA":{"ene":{"ventas":0.0,"alq":5.783,"rrhh":2.154,"bancos":1.978,"imp":0.415},"feb":{"ventas":0.0,"alq":5.947,"rrhh":7.983,"bancos":0.0,"imp":0.335},"mar":{"ventas":0.0,"cmv":12.098,"alq":12.415,"rrhh":7.669,"bancos":0.897,"imp":0.381}},"FIXSTATION ALTOPALERMO":{"ene":{"ventas":0.0,"alq":10.681,"rrhh":2.141,"bancos":2.948,"imp":0.0},"feb":{"ventas":0.0,"alq":10.985,"rrhh":5.434,"bancos":0.0,"imp":0.0},"mar":{"ventas":0.0,"cmv":18.889,"alq":22.93,"rrhh":5.458,"bancos":2.535,"imp":1.075}},"FIXSTATION ALTOROSARIO":{"ene":{"ventas":0.0,"alq":5.012,"rrhh":1.763,"bancos":2.188,"imp":0.0},"feb":{"ventas":0.0,"alq":6.051,"rrhh":4.031,"bancos":0.0,"imp":0.0},"mar":{"ventas":0.0,"cmv":11.333,"alq":10.851,"rrhh":8.389,"bancos":2.323,"imp":1.087}},"FIXSTATION DOT":{"ene":{"ventas":0.0,"alq":4.669,"rrhh":1.068,"bancos":0.955,"imp":0.0},"feb":{"ventas":0.0,"alq":4.802,"rrhh":6.643,"bancos":0.0,"imp":0.0},"mar":{"ventas":0.0,"cmv":7.281,"alq":10.024,"rrhh":7.739,"bancos":1.29,"imp":0.539}},"FIXSTATION PARQUEBROWN":{"ene":{"ventas":0.0,"alq":4.487,"rrhh":1.12,"bancos":0.469,"imp":0.0},"feb":{"ventas":0.0,"alq":0.0,"rrhh":3.716,"bancos":0.0,"imp":0.0},"mar":{"ventas":0.0,"cmv":5.279,"alq":5.595,"rrhh":4.544,"bancos":1.024,"imp":0.304}},"FIXSTATION PLAZAOESTE":{"ene":{"ventas":0.0,"alq":5.841,"rrhh":1.659,"bancos":0.85,"imp":0.341},"feb":{"ventas":0.0,"alq":0.0,"rrhh":3.719,"bancos":0.0,"imp":0.196},"mar":{"ventas":0.0,"cmv":8.734,"alq":6.693,"rrhh":4.516,"bancos":1.866,"imp":0.31}},"FIXSTATION UNICENTER":{"ene":{"ventas":0.0,"alq":10.087,"rrhh":2.131,"bancos":2.726,"imp":0.139},"feb":{"ventas":0.0,"alq":0.0,"rrhh":5.593,"bancos":0.0,"imp":0.0},"mar":{"ventas":0.0,"cmv":14.098,"alq":11.275,"rrhh":6.383,"bancos":3.305,"imp":0.351}},"FIXSTATION UNICENTER 2":{"ene":{"ventas":0.0,"alq":10.145,"rrhh":2.672,"bancos":3.862,"imp":0.612},"feb":{"ventas":0.0,"alq":0.0,"rrhh":7.955,"bancos":0.0,"imp":0.0},"mar":{"ventas":0.0,"cmv":23.642,"alq":11.277,"rrhh":7.05,"bancos":4.861,"imp":0.228}},"ITREND ALTOAVELLANEDA":{"ene":{"ventas":0.0,"alq":8.374,"rrhh":1.904,"bancos":0.609,"imp":0.279},"feb":{"ventas":0.0,"alq":5.839,"rrhh":3.645,"bancos":0.0,"imp":0.156},"mar":{"ventas":0.0,"cmv":6.642,"alq":12.188,"rrhh":4.546,"bancos":1.208,"imp":0.281}},"SWOPTECH ABASTO":{"ene":{"ventas":0.0,"alq":5.829,"rrhh":2.876,"bancos":1.602,"imp":0.0},"feb":{"ventas":0.0,"alq":6.074,"rrhh":5.537,"bancos":0.0,"imp":0.0},"mar":{"ventas":0.0,"cmv":6.841,"alq":12.615,"rrhh":4.46,"bancos":2.293,"imp":0.781}},"SWOPTECH ALTOAVELLANEDA":{"ene":{"ventas":0.0,"alq":4.761,"rrhh":1.855,"bancos":0.714,"imp":0.253},"feb":{"ventas":0.0,"alq":4.961,"rrhh":3.507,"bancos":0.0,"imp":0.173},"mar":{"ventas":0.0,"cmv":2.927,"alq":5.104,"rrhh":4.303,"bancos":0.506,"imp":0.4}},"SWOPTECH ALTOROSARIO":{"ene":{"ventas":0.0,"alq":6.529,"rrhh":2.963,"bancos":1.139,"imp":0.0},"feb":{"ventas":0.0,"alq":5.155,"rrhh":4.805,"bancos":0.0,"imp":0.0},"mar":{"ventas":0.0,"cmv":8.098,"alq":10.76,"rrhh":4.63,"bancos":1.65,"imp":0.699}},"THEICASE ABASTO":{"ene":{"ventas":0.0,"alq":5.677,"rrhh":1.052,"bancos":1.722,"imp":0.0},"feb":{"ventas":0.0,"alq":5.839,"rrhh":3.568,"bancos":0.0,"imp":0.0},"mar":{"ventas":0.0,"cmv":9.553,"alq":17.617,"rrhh":4.945,"bancos":1.302,"imp":0.554}},"THEICASE ABASTO 2":{"ene":{"ventas":0.0,"alq":6.995,"rrhh":2.214,"bancos":3.879,"imp":0.0},"feb":{"ventas":0.0,"alq":0.326,"rrhh":5.179,"bancos":0.0,"imp":0.0},"mar":{"ventas":0.0,"cmv":20.526,"alq":11.281,"rrhh":6.375,"bancos":4.8,"imp":1.432}},"THEICASE ALCORTA":{"ene":{"ventas":0.0,"alq":4.987,"rrhh":2.438,"bancos":0.912,"imp":0.094},"feb":{"ventas":0.0,"alq":4.232,"rrhh":3.588,"bancos":0.0,"imp":0.094},"mar":{"ventas":0.0,"cmv":6.857,"alq":10.706,"rrhh":4.735,"bancos":1.084,"imp":1.018}},"THEICASE ALTOAVELLANEDA":{"ene":{"ventas":0.0,"alq":8.694,"rrhh":2.532,"bancos":3.227,"imp":0.602},"feb":{"ventas":0.0,"alq":6.687,"rrhh":6.317,"bancos":0.0,"imp":0.433},"mar":{"ventas":0.0,"cmv":9.162,"alq":12.676,"rrhh":8.258,"bancos":3.097,"imp":0.623}},"THEICASE ALTOAVELLANEDA 2":{"ene":{"ventas":0.0,"alq":8.53,"rrhh":2.569,"bancos":1.413,"imp":0.333},"feb":{"ventas":0.0,"alq":5.947,"rrhh":3.556,"bancos":0.0,"imp":0.245},"mar":{"ventas":0.0,"cmv":9.961,"alq":12.415,"rrhh":4.989,"bancos":1.756,"imp":0.399}},"THEICASE ALTOPALERMO":{"ene":{"ventas":0.0,"alq":15.455,"rrhh":3.293,"bancos":2.886,"imp":0.0},"feb":{"ventas":0.0,"alq":11.818,"rrhh":5.477,"bancos":0.0,"imp":0.0},"mar":{"ventas":0.0,"cmv":28.538,"alq":22.93,"rrhh":8.032,"bancos":5.342,"imp":1.72}},"THEICASE ALTOROSARIO":{"ene":{"ventas":0.0,"alq":9.497,"rrhh":3.508,"bancos":2.468,"imp":0.0},"feb":{"ventas":0.0,"alq":8.858,"rrhh":5.222,"bancos":0.0,"imp":0.0},"mar":{"ventas":0.0,"cmv":12.426,"alq":14.17,"rrhh":6.361,"bancos":2.285,"imp":1.279}},"THEICASE ALTOROSARIO 2":{"ene":{"ventas":0.0,"alq":4.987,"rrhh":2.064,"bancos":0.914,"imp":0.0},"feb":{"ventas":0.0,"alq":5.129,"rrhh":5.367,"bancos":0.0,"imp":0.0},"mar":{"ventas":0.0,"cmv":6.054,"alq":5.276,"rrhh":4.558,"bancos":1.169,"imp":0.807}},"THEICASE CABALLITO":{"ene":{"ventas":0.0,"alq":8.012,"rrhh":2.351,"bancos":0.944,"imp":0.0},"feb":{"ventas":0.0,"alq":8.012,"rrhh":3.862,"bancos":0.0,"imp":0.0},"mar":{"ventas":0.0,"cmv":6.617,"alq":7.891,"rrhh":4.873,"bancos":1.935,"imp":0.93}},"THEICASE CABALLITO 2":{"ene":{"ventas":0.0,"alq":0.001,"rrhh":1.497,"bancos":0.657,"imp":0.0},"feb":{"ventas":0.0,"alq":0.982,"rrhh":2.779,"bancos":0.0,"imp":0.0},"mar":{"ventas":0.0,"cmv":3.641,"alq":0.982,"rrhh":2.85,"bancos":1.026,"imp":0.369}},"THEICASE DEVOTO":{"ene":{"ventas":0.0,"alq":0.0,"rrhh":2.612,"bancos":1.045,"imp":0.0},"feb":{"ventas":0.0,"alq":1.17,"rrhh":3.67,"bancos":0.0,"imp":0.0},"mar":{"ventas":0.0,"cmv":7.243,"alq":1.17,"rrhh":4.571,"bancos":1.441,"imp":0.578}},"THEICASE DISTRITOARCOS":{"ene":{"ventas":0.0,"alq":4.784,"rrhh":2.005,"bancos":0.868,"imp":0.0},"feb":{"ventas":0.0,"alq":4.921,"rrhh":3.963,"bancos":0.0,"imp":0.0},"mar":{"ventas":0.0,"cmv":7.853,"alq":5.062,"rrhh":4.798,"bancos":1.708,"imp":0.78}},"THEICASE DOT":{"ene":{"ventas":0.0,"alq":7.7,"rrhh":2.323,"bancos":1.918,"imp":0.0},"feb":{"ventas":0.0,"alq":6.467,"rrhh":3.32,"bancos":0.0,"imp":0.0},"mar":{"ventas":0.0,"cmv":15.15,"alq":10.43,"rrhh":3.892,"bancos":3.215,"imp":1.243}},"THEICASE EZEIZA":{"ene":{"ventas":0.0,"alq":2.53,"rrhh":1.927,"bancos":0.676,"imp":1.458},"feb":{"ventas":0.0,"alq":6.359,"rrhh":4.136,"bancos":0.0,"imp":0.312},"mar":{"ventas":0.0,"cmv":7.244,"alq":4.268,"rrhh":4.669,"bancos":0.777,"imp":0.314}},"THEICASE NORDELTA":{"ene":{"ventas":0.0,"alq":4.094,"rrhh":3.216,"bancos":0.97,"imp":0.325},"feb":{"ventas":0.0,"alq":5.501,"rrhh":4.274,"bancos":0.0,"imp":0.274},"mar":{"ventas":0.0,"cmv":6.378,"alq":5.964,"rrhh":4.317,"bancos":1.139,"imp":0.572}},"THEICASE PARQUEBROWN":{"ene":{"ventas":0.0,"alq":4.916,"rrhh":2.258,"bancos":0.773,"imp":0.0},"feb":{"ventas":0.0,"alq":0.0,"rrhh":3.719,"bancos":0.0,"imp":0.0},"mar":{"ventas":0.0,"cmv":6.341,"alq":6.805,"rrhh":4.516,"bancos":0.739,"imp":0.295}},"THEICASE PLAZAOESTE":{"ene":{"ventas":0.0,"alq":5.433,"rrhh":2.666,"bancos":1.413,"imp":0.593},"feb":{"ventas":0.0,"alq":0.0,"rrhh":3.737,"bancos":0.0,"imp":0.322},"mar":{"ventas":0.0,"cmv":6.051,"alq":5.675,"rrhh":4.533,"bancos":0.973,"imp":0.285}},"THEICASE PORTALLOMAS":{"ene":{"ventas":0.0,"alq":4.396,"rrhh":1.672,"bancos":0.903,"imp":0.267},"feb":{"ventas":0.0,"alq":0.0,"rrhh":3.705,"bancos":0.0,"imp":0.686},"mar":{"ventas":0.0,"cmv":5.443,"alq":5.04,"rrhh":4.472,"bancos":0.824,"imp":0.271}},"THEICASE PORTALPALERMO":{"ene":{"ventas":0.0,"alq":4.743,"rrhh":2.528,"bancos":0.6,"imp":0.0},"feb":{"ventas":0.0,"alq":0.0,"rrhh":2.37,"bancos":0.0,"imp":0.0},"mar":{"ventas":0.0,"cmv":3.52,"alq":5.409,"rrhh":3.267,"bancos":0.49,"imp":0.228}},"THEICASE RIVADAVIA":{"ene":{"ventas":0.0,"alq":6.084,"rrhh":2.004,"bancos":0.698,"imp":0.0},"feb":{"ventas":0.0,"alq":6.084,"rrhh":2.475,"bancos":0.0,"imp":0.0},"mar":{"ventas":0.0,"cmv":5.162,"alq":4.0,"rrhh":4.434,"bancos":1.481,"imp":0.522}},"THEICASE SANMIGUEL":{"ene":{"ventas":0.0,"alq":3.478,"rrhh":1.823,"bancos":1.615,"imp":0.502},"feb":{"ventas":0.0,"alq":3.583,"rrhh":4.001,"bancos":0.0,"imp":0.591},"mar":{"ventas":0.0,"cmv":8.452,"alq":7.491,"rrhh":4.658,"bancos":2.339,"imp":0.444}},"THEICASE UNICENTER":{"ene":{"ventas":0.0,"alq":11.329,"rrhh":5.377,"bancos":5.332,"imp":2.34},"feb":{"ventas":0.0,"alq":0.0,"rrhh":7.199,"bancos":0.0,"imp":0.0},"mar":{"ventas":0.0,"cmv":40.517,"alq":13.763,"rrhh":9.009,"bancos":7.592,"imp":0.532}}},"store_names":["ECOM","FIXSTATION ABASTO","FIXSTATION ALTOAVELLANEDA","FIXSTATION ALTOPALERMO","FIXSTATION ALTOROSARIO","FIXSTATION DOT","FIXSTATION PARQUEBROWN","FIXSTATION PLAZAOESTE","FIXSTATION UNICENTER","FIXSTATION UNICENTER 2","ITREND ALTOAVELLANEDA","SWOPTECH ABASTO","SWOPTECH ALTOAVELLANEDA","SWOPTECH ALTOROSARIO","THEICASE ABASTO","THEICASE ABASTO 2","THEICASE ALCORTA","THEICASE ALTOAVELLANEDA","THEICASE ALTOAVELLANEDA 2","THEICASE ALTOPALERMO","THEICASE ALTOROSARIO","THEICASE ALTOROSARIO 2","THEICASE CABALLITO","THEICASE CABALLITO 2","THEICASE DEVOTO","THEICASE DISTRITOARCOS","THEICASE DOT","THEICASE EZEIZA","THEICASE NORDELTA","THEICASE PARQUEBROWN","THEICASE PLAZAOESTE","THEICASE PORTALLOMAS","THEICASE PORTALPALERMO","THEICASE RIVADAVIA","THEICASE SANMIGUEL","THEICASE UNICENTER"],"rrhh_detail":{"ene":{"Cargas Sociales":153.921,"Nomina - Vacaciones-Adelantos":149.277,"Comisiones":39.477,"Cargas Sociales (N/I)":10.461,"Bajas-Acuerdo":5.831,"Bajas-Renuncia":4.997,"Bajas-FP":1.344,"Plataformas (N/I)":1.047,"Honorarios (N/I)":0.4,"Prepagas":0.022},"feb":{"Nomina - Vacaciones-Adelantos":350.516,"Cargas Sociales":49.545,"Comisiones":29.717,"Nomina - Vacaciones-Adelantos (N/I)":22.926,"Bajas-Acuerdo":17.448,"Honorarios (N/I)":5.251,"Cargas Sociales (N/I)":4.54,"Bajas-Acuerdo (N/I)":4.511,"Bajas-Renuncia":2.646,"Seguridad e Higiene (N/I)":2.394,"Sindicatos (N/I)":2.19,"Bajas-FP":2.093,"Movilidad y Viaticos (N/I)":1.617,"Honorarios":1.359,"Seguro de vida (N/I)":1.238,"Bajas-FP (N/I)":1.189,"Plataformas (N/I)":0.869,"Telegramas (N/I)":0.336,"Capacitaciones":0.222,"Bienestar (N/I)":0.075,"Movilidad y Viaticos":0.038,"Prepagas":0.03},"mar":{"Nomina - Vacaciones-Adelantos":260.53,"Cargas Sociales":91.838,"Comisiones":28.01,"Nomina - Vacaciones-Adelantos (N/I)":22.151,"Bajas-Acuerdo":10.789,"Cargas Sociales (N/I)":8.165,"Bajas-Acuerdo (N/I)":7.908,"Honorarios (N/I)":4.547,"Bajas-Renuncia":3.024,"Bajas-Renuncia (N/I)":2.054,"Sindicatos (N/I)":1.785,"Movilidad y Viaticos (N/I)":1.776,"Honorarios":1.74,"Seguro de vida (N/I)":1.265,"Bajas-FP":0.996,"Plataformas (N/I)":0.869,"Faecys (N/I)":0.37,"Seguridad e Higiene (N/I)":0.246,"Telegramas (N/I)":0.108,"Prepagas (N/I)":0.07,"Capacitaciones (N/I)":0.049,"Prepagas":0.036}},"gni_detail":{"ene":{"Administración — Accionistas":111.117,"RRHH — Cargas Sociales":10.461,"IT — Plataformas de ventas y control":10.054,"Alquileres — shopping":8.828,"Alquileres — Locales":6.958,"Bancos — Tarjetas corporativas":5.283,"Logística — Fletes":4.342,"Impuestos — Otros_Imp":3.469,"Impuestos — IVA":3.086,"Logística — Motos":2.614,"Tercerizados — Gestores":2.137,"Tercerizados — Contaduría":1.62,"Servicios — Internet":1.355,"RRHH — Plataformas":1.047,"Logística — Flete larga distancia":0.839,"Servicios — Seguros":0.548,"RRHH — Honorarios":0.4,"Marketing — Publicidad Medios Digitales":0.3,"Servicios — Agua":0.287,"IT — Dominio Wed":0.214,"Servicios — Telefonía":0.12},"feb":{"Administración — Accionistas":90.883,"Alquileres — shopping":75.211,"RRHH — Nomina - Vacaciones-Adelantos":22.926,"Ventas — Mayorista":18.717,"IT — Plataformas de ventas y control":10.034,"Impuestos — Impuestos bancarios":9.511,"Logística — Motos":6.702,"Alquileres — Locales":6.632,"Servicios — Internet":6.445,"Bancos — Tarjetas corporativas":6.123,"Marketing — Publicidad Medios Digitales":5.785,"RRHH — Honorarios":5.251,"Logística — Fletes":4.906,"RRHH — Cargas Sociales":4.54,"RRHH — Bajas-Acuerdo":4.511,"Tercerizados — Contaduría":4.308,"Servicios — Seguros":4.306,"Servicios — Telefonía":3.193,"Administración — Caja chica":3.0,"RRHH — Seguridad e Higiene":2.394,"RRHH — Sindicatos":2.19},"mar":{"Administración — Accionistas":118.109,"RRHH — Nomina - Vacaciones-Adelantos":22.151,"Impuestos — Impuestos bancarios":11.817,"IT — Plataformas de ventas y control":11.01,"Logística — Fletes":9.044,"Marketing — Publicidad Medios Digitales":8.361,"RRHH — Cargas Sociales":8.165,"RRHH — Bajas-Acuerdo":7.908,"Alquileres — Locales":6.553,"Logística — Motos":4.801,"RRHH — Honorarios":4.547,"Alquileres — shopping":4.315,"Tercerizados — Gestores":3.365,"Servicios — Seguros":2.33,"Bancos — Costo Tarjetas":2.318,"Tercerizados — Contaduría":2.281,"Impuestos — Impuestos tarjetas":2.074,"RRHH — Bajas-Renuncia":2.054,"Ventas — Devoluciones al cliente":1.97,"RRHH — Sindicatos":1.785,"RRHH — Movilidad y Viaticos":1.776}}};
+
+// Populate store selector
+const sel = document.getElementById('storeSelect');
+DATA.store_names.forEach(s => {
+  const o = document.createElement('option');
+  o.value = s; o.textContent = s;
+  sel.appendChild(o);
+});
+
+function fmt(v, decimals=1) {
+  if (v === null || v === undefined || isNaN(v)) return '—';
+  return '$' + v.toFixed(decimals) + 'M';
+}
+function pct(v, base) {
+  if (!base || base === 0) return '';
+  return (v/base*100).toFixed(1)+'%';
+}
+function tendIcon(e, m) {
+  if (!e || !m) return '<span class="tend flat">— N/D</span>';
+  const d = m - e;
+  const dp = (d/e*100);
+  if (Math.abs(dp) < 2) return `<span class="tend flat">— Fijo</span>`;
+  if (d < 0) return `<span class="tend better">↓ Mejor ${dp.toFixed(0)}%</span>`;
+  return `<span class="tend worse">↑ Peor +${dp.toFixed(0)}%</span>`;
+}
+function tendIconRev(e, m) { // for costs, increasing is worse
+  return tendIcon(e, m);
+}
+
+function row(cls, label, ve, pe, vf, pf, vm, pm, tend, indent=0, clickId=null) {
+  const ind = indent ? `style="padding-left:${indent}px"` : '';
+  const clickAttr = clickId ? `onclick="toggleDetail('${clickId}')" id="hdr_${clickId}"` : '';
+  return `<tr class="${cls}" ${clickAttr}>
+    <td ${ind}>${label}</td>
+    <td>${ve!==null?fmt(ve):'—'}</td><td class="pct">${pe}</td>
+    <td>${vf!==null?fmt(vf):'—'}</td><td class="pct">${pf}</td>
+    <td>${vm!==null?fmt(vm):'—'}</td><td class="pct">${pm}</td>
+    <td>${tend}</td>
+  </tr>`;
+}
+
+function toggleDetail(id) {
+  const hdr = document.getElementById('hdr_' + id);
+  const rows = document.querySelectorAll('.detail_' + id);
+  const isOpen = hdr.classList.contains('open');
+  hdr.classList.toggle('open', !isOpen);
+  rows.forEach(r => r.classList.toggle('visible', !isOpen));
+}
+
+function render() {
+  const sel = document.getElementById('storeSelect').value;
+  const isNetwork = sel === '__network__';
+  document.getElementById('storeBadge').textContent = isNetwork ? 'Red Total' : sel;
+
+  let d_e, d_f, d_m, ventas_e, ventas_f, ventas_m;
+
+  if (isNetwork) {
+    d_e = DATA.network.ene; d_f = DATA.network.feb; d_m = DATA.network.mar;
+    ventas_e = d_e.ventas; ventas_f = d_f.ventas; ventas_m = d_m.ventas;
+  } else {
+    d_e = DATA.stores[sel]?.ene || {};
+    d_f = DATA.stores[sel]?.feb || {};
+    d_m = DATA.stores[sel]?.mar || {};
+    // For store view, ventas not available for E/F from this data
+    ventas_e = null; ventas_f = null;
+    ventas_m = d_m.ventas || null;
+  }
+
+  const alq_e = d_e.alq||0, alq_f = d_f.alq||0, alq_m = d_m.alq||0;
+  const rrhh_e = d_e.rrhh||0, rrhh_f = d_f.rrhh||0, rrhh_m = d_m.rrhh||0;
+  const ban_e = d_e.bancos||0, ban_f = d_f.bancos||0, ban_m = d_m.bancos||0;
+  const imp_e = d_e.imp||(isNetwork?d_e.imp||22.5:0), imp_f = d_f.imp||(isNetwork?22.5:0), imp_m = d_m.imp||(isNetwork?22.5:0);
+  const gni_e = isNetwork?(d_e.gni||0):null, gni_f = isNetwork?(d_f.gni||0):null, gni_m = isNetwork?(d_m.gni||0):null;
+  const cmv_e = isNetwork?d_e.cmv:null, cmv_f = isNetwork?d_f.cmv:null, cmv_m = d_m.cmv||null;
+  const un_e = isNetwork?d_e.un:null, un_f = isNetwork?d_f.un:null, un_m = isNetwork?d_m.un:null;
+
+  const op_e = alq_e+rrhh_e+ban_e+imp_e+(gni_e||0);
+  const op_f = alq_f+rrhh_f+ban_f+imp_f+(gni_f||0);
+  const op_m = alq_m+rrhh_m+ban_m+imp_m+(gni_m||0);
+  const tc_e = isNetwork?(op_e+(cmv_e||0)):null;
+  const tc_f = isNetwork?(op_f+(cmv_f||0)):null;
+  const tc_m = isNetwork?(op_m+(cmv_m||0)):null;
+
+  let html = '';
+
+  // Section: Ingresos
+  if (isNetwork) {
+    html += `<tr class="row-section"><td colspan="8">📊 Ingresos</td></tr>`;
+    html += row('', 'Facturación Neta', ventas_e, '100%', ventas_f, '100%', ventas_m, '100%',
+      tendIcon(ventas_e, ventas_m));
+  }
+
+  // Section: Costos Directos
+  html += `<tr class="row-section"><td colspan="8">💰 Costos Directos</td></tr>`;
+  if (isNetwork) html += row('', 'CMV (c/IVA)', cmv_e, pct(cmv_e,ventas_e), cmv_f, pct(cmv_f,ventas_f), cmv_m, pct(cmv_m,ventas_m), tendIconRev(cmv_e,cmv_m));
+
+  html += row('row-expandable', '🏪 Alquileres', alq_e, isNetwork?pct(alq_e,ventas_e):'', alq_f, isNetwork?pct(alq_f,ventas_f):'', alq_m, isNetwork?pct(alq_m,ventas_m):'', tendIconRev(alq_e,alq_m), 0, 'alq');
+  // Alq detail rows (store-level, show per store for network or show explanation for store)
+  if (!isNetwork) {
+    html += `<tr class="row-detail detail_alq"><td style="padding-left:32px;font-style:italic;color:#888" colspan="8">⚠️ Solo se muestran Alquileres del registro de gastos por tienda. Febrero puede estar incompleto para locales IRSA (factura única registrada).</td></tr>`;
+  }
+
+  html += row('row-expandable', '👥 RRHH', rrhh_e, isNetwork?pct(rrhh_e,ventas_e):'', rrhh_f, isNetwork?pct(rrhh_f,ventas_f):'', rrhh_m, isNetwork?pct(rrhh_m,ventas_m):'', tendIconRev(rrhh_e,rrhh_m), 0, 'rrhh');
+  if (!isNetwork) {
+    html += `<tr class="row-detail detail_rrhh"><td style="padding-left:32px;font-style:italic;color:#888" colspan="8">Solo RRHH directo imputado a este local. El detalle por clasificación está disponible a nivel Red Total.</td></tr>`;
+  }
+
+  html += row('', '🏦 Bancos / Comisiones', ban_e, isNetwork?pct(ban_e,ventas_e):'', ban_f, isNetwork?pct(ban_f,ventas_f):'', ban_m, isNetwork?pct(ban_m,ventas_m):'', tendIconRev(ban_e,ban_m));
+  html += row('', '📋 Impuestos', imp_e, isNetwork?pct(imp_e,ventas_e):'', imp_f, isNetwork?pct(imp_f,ventas_f):'', imp_m, isNetwork?pct(imp_m,ventas_m):'', tendIconRev(imp_e,imp_m));
+
+  if (isNetwork) {
+    html += row('row-expandable', '🔵 GNI / Costos Centrales', gni_e, pct(gni_e,ventas_e), gni_f, pct(gni_f,ventas_f), gni_m, pct(gni_m,ventas_m), tendIconRev(gni_e,gni_m), 0, 'gni');
+  } else {
+    html += `<tr class="row-section"><td colspan="8" style="color:#888;font-size:0.75rem;font-style:italic">GNI no atribuible a locales individuales — ver Red Total</td></tr>`;
+  }
+
+  html += row('row-total', 'Total Costos Operativos', op_e, isNetwork?pct(op_e,ventas_e):'', op_f, isNetwork?pct(op_f,ventas_f):'', op_m, isNetwork?pct(op_m,ventas_m):'', tendIconRev(op_e,op_m));
+
+  if (isNetwork) {
+    html += `<tr class="row-section"><td colspan="8">📈 Resultado</td></tr>`;
+    html += row('row-grand', 'Total Costos (CMV + Operativos)', tc_e, pct(tc_e,ventas_e), tc_f, pct(tc_f,ventas_f), tc_m, pct(tc_m,ventas_m), tendIconRev(tc_e,tc_m));
+    const netCls = (un_m||0) < 0 ? 'row-net neg' : 'row-net';
+    html += row(netCls, 'Resultado Neto', un_e, pct(un_e,ventas_e), un_f, pct(un_f,ventas_f), un_m, pct(un_m,ventas_m), tendIcon(un_e,un_m));
+  }
+
+  document.getElementById('mainBody').innerHTML = html;
+
+  // Alert for store view
+  const alert = document.getElementById('alertBox');
+  if (!isNetwork) {
+    alert.style.display = '';
+    alert.innerHTML = `<b>Vista por local:</b> Los montos reflejan solo los costos directamente imputados a <b>${sel}</b> en el registro de gastos. Ventas de Enero/Febrero no disponibles en este archivo. <b>Febrero puede tener alquileres incompletos</b> para locales IRSA (solo una de dos facturas registrada). GNI es exclusivamente de Red Total.`;
+  } else {
+    alert.style.display = 'none';
+  }
+
+  // Note
+  document.getElementById('tableNote').innerHTML = isNetwork
+    ? '* Red Total: Alquileres, RRHH y Bancos de la pivot de gastos por mes. GNI derivado como residuo (TCO − Alq − RRHH − Bancos − Imp). CMV del sistema de facturación.'
+    : `* Vista individual ${sel}: costos del registro de gastos filtrado por centro de costo. Sin CMV ni GNI por store.`;
+}
+
+// Build RRHH detail table (always network level)
+function buildRRHHTable() {
+  const d_e = DATA.rrhh_detail.ene, d_f = DATA.rrhh_detail.feb, d_m = DATA.rrhh_detail.mar;
+  const allKeys = [...new Set([...Object.keys(d_e), ...Object.keys(d_f), ...Object.keys(d_m)])];
+  allKeys.sort((a,b) => ((d_e[b]||0)+(d_f[b]||0)+(d_m[b]||0)) - ((d_e[a]||0)+(d_f[a]||0)+(d_m[a]||0)));
+
+  let html = '';
+  allKeys.forEach(k => {
+    const ve = d_e[k]||0, vf = d_f[k]||0, vm = d_m[k]||0;
+    const isNI = k.includes('(N/I)');
+    const cls = isNI ? 'row-detail ni visible' : 'row-detail visible';
+    const tend = tendIconRev(ve||vf, vm);
+    html += `<tr class="${cls}"><td>${isNI?'<i>'+k+'</i>':k}</td><td>${ve?fmt(ve):'—'}</td><td>${vf?fmt(vf):'—'}</td><td>${vm?fmt(vm):'—'}</td><td>${tend}</td></tr>`;
+  });
+  document.getElementById('rrhh_body').innerHTML = html;
+}
+
+function buildGNITable() {
+  const d_e = DATA.gni_detail.ene, d_f = DATA.gni_detail.feb, d_m = DATA.gni_detail.mar;
+  const allKeys = [...new Set([...Object.keys(d_e), ...Object.keys(d_f), ...Object.keys(d_m)])];
+  allKeys.sort((a,b) => ((d_e[b]||0)+(d_f[b]||0)+(d_m[b]||0)) - ((d_e[a]||0)+(d_f[a]||0)+(d_m[a]||0)));
+
+  let html = '';
+  allKeys.forEach(k => {
+    const ve = d_e[k]||0, vf = d_f[k]||0, vm = d_m[k]||0;
+    const tend = tendIconRev(ve||vf, vm);
+    html += `<tr class="row-detail visible"><td>${k}</td><td>${ve?fmt(ve):'—'}</td><td>${vf?fmt(vf):'—'}</td><td>${vm?fmt(vm):'—'}</td><td>${tend}</td></tr>`;
+  });
+  document.getElementById('gni_body').innerHTML = html;
+}
+
+render();
+buildRRHHTable();
+buildGNITable();
+</script>
+</body>
+</html>
