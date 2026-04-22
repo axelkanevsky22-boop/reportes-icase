@@ -184,24 +184,14 @@
 
 <div class="section-title">&#128203; Estructura de Costos &#8212; Evolución Q1</div>
 <div class="card">
-  <table><thead><tr>
-    <th>Componente de Costo</th>
-    <th class="right">Enero $</th><th class="right">Enero %</th>
-    <th class="right">Febrero $</th><th class="right">Febrero %</th>
-    <th class="right">Marzo $</th><th class="right">Marzo %</th>
-    <th class="right">Tendencia</th>
-  </tr></thead>
-  <tbody>
-    <tr><td>CMV (c/IVA)</td><td class="right">$379,6M</td><td class="right">26.7%</td><td class="right">$327,2M</td><td class="right">25.3%</td><td class="right">$370,1M</td><td class="right var-pos">24.7%</td><td class="center"><span class="signal up">&#8595; Mejor</span></td></tr>
-    <tr><td>Alquileres</td><td class="right">$266,4M</td><td class="right">18.8%</td><td class="right">$246,6M</td><td class="right">19.1%</td><td class="right">$221,1M</td><td class="right var-neg">14.8%</td><td class="center"><span class="signal stable">&#8212; Fijo</span></td></tr>
-    <tr><td>RRHH</td><td class="right">$351,6M</td><td class="right">24.8%</td><td class="right">$310,9M</td><td class="right">24.1%</td><td class="right">$188,4M</td><td class="right">12.6%</td><td class="center"><span class="signal stable">&#8212; Fijo</span></td></tr>
-    <tr><td>Bancos</td><td class="right">$73,8M</td><td class="right">5.2%</td><td class="right">$73,2M</td><td class="right">5.7%</td><td class="right">$72,2M</td><td class="right">4.8%</td><td class="center"><span class="signal stable">&#8212; Variable</span></td></tr>
-    <tr><td>GNI / Costos Centrales</td><td class="right">$220,7M</td><td class="right">15.5%</td><td class="right">$205,7M</td><td class="right">15.9%</td><td class="right">$313,9M</td><td class="right">20.9%</td><td class="center"><span class="signal stable">&#8212; Prop.</span></td></tr>
-    <tr style="background:#eef2ff;font-weight:700"><td>Total Costos Operativos</td><td class="right">$912,5M</td><td class="right">64.2%</td><td class="right">$836,4M</td><td class="right">64.7%</td><td class="right">$942,6M</td><td class="right var-pos">62.9%</td><td class="center"><span class="signal up">&#8595; Mejor</span></td></tr>
-    <tr style="background:#1F3864;color:#fff;font-weight:700"><td>Total Costos (CMV + Operativos)</td><td class="right">$1.292,1M</td><td class="right">91.0%</td><td class="right">$1.163,6M</td><td class="right">90.0%</td><td class="right">$1.312,7M</td><td class="right var-pos">87.6%</td><td class="center"><span style="background:rgba(255,255,255,.2);padding:2px 8px;border-radius:10px;font-size:10px">&#8595; Mejor</span></td></tr>
-    <tr style="background:#e8f4e8;font-weight:700"><td>Resultado Neto</td><td class="right">$128,2M</td><td class="right var-pos">9.0%</td><td class="right">$128,7M</td><td class="right var-pos">10.0%</td><td class="right">$300,0M</td><td class="right var-pos">20.0%</td><td class="center"><span class="signal up">&#8593; Mejor</span></td></tr>
-  </tbody></table>
-  <p style="font-size:10px;color:#888;margin-top:8px">* Enero y Febrero: detalle de Alquileres, RRHH y Bancos extraído de la pivot de gastos. GNI derivado como residuo de TCO.</p>
+  <div style="display:flex;align-items:center;gap:16px;flex-wrap:wrap;margin-bottom:16px">
+    <div>
+      <label style="font-size:11px;font-weight:700;color:#1F3864;display:block;margin-bottom:5px;text-transform:uppercase;letter-spacing:.5px">Seleccionar Local</label>
+      <select id="costosSelect" onchange="renderCostos()" style="padding:8px 14px;border:2px solid #2F5496;border-radius:8px;font-size:13px;font-weight:600;color:#1F3864;background:#fff;min-width:280px;cursor:pointer"><option value="Red Total">&#127760; Red Total (Red completa)</option><option value="Fixstation Abasto">Fixstation Abasto</option><option value="Fixstation Altoavellaneda">Fixstation Altoavellaneda</option><option value="Fixstation Altopalermo">Fixstation Altopalermo</option><option value="Fixstation Altorosario">Fixstation Altorosario</option><option value="Fixstation Dot">Fixstation Dot</option><option value="Fixstation Parquebrown">Fixstation Parquebrown</option><option value="Fixstation Plazaoeste">Fixstation Plazaoeste</option><option value="Fixstation Unicenter">Fixstation Unicenter</option><option value="Itrend Altoavellaneda">Itrend Altoavellaneda</option><option value="Swoptech Abasto">Swoptech Abasto</option><option value="Swoptech Altoavellaneda">Swoptech Altoavellaneda</option><option value="Swoptech Altorosario">Swoptech Altorosario</option><option value="The Icase Abasto">The Icase Abasto</option><option value="The Icase Alcorta">The Icase Alcorta</option><option value="The Icase Altoavellaneda">The Icase Altoavellaneda</option><option value="The Icase Altopalermo">The Icase Altopalermo</option><option value="The Icase Altorosario">The Icase Altorosario</option><option value="The Icase Caballito">The Icase Caballito</option><option value="The Icase Devoto">The Icase Devoto</option><option value="The Icase Distritoarcos">The Icase Distritoarcos</option><option value="The Icase Dot">The Icase Dot</option><option value="The Icase Ezeiza">The Icase Ezeiza</option><option value="The Icase Nordelta">The Icase Nordelta</option><option value="The Icase Parquebrown">The Icase Parquebrown</option><option value="The Icase Plazaoeste">The Icase Plazaoeste</option><option value="The Icase Portallomas">The Icase Portallomas</option><option value="The Icase Portalpalermo">The Icase Portalpalermo</option><option value="The Icase Rivadavia">The Icase Rivadavia</option><option value="The Icase San Miguel">The Icase San Miguel</option><option value="The Icase Unicenter">The Icase Unicenter</option></select>
+    </div>
+  </div>
+  <div id="costos-content" style="overflow-x:auto"></div>
+  <p style="font-size:10px;color:#888;margin-top:8px">* Enero y Febrero: detalle de Alquileres, RRHH y Bancos extraído de la pivot de gastos. GNI derivado como residuo de TCO. Algunos alquileres Feb pueden aparecer en $0 si la factura del shopping aún no estaba registrada al momento del corte.</p>
 </div>
 
 
@@ -464,9 +454,69 @@ function renderPL() {
   }
 }
 
+const COST_RT={ene:{cmv:379.6,alq:266.4,rrhh:351.6,bancos:73.8,gni:220.7,rev:1420.3},feb:{cmv:327.2,alq:246.6,rrhh:310.9,bancos:73.2,gni:205.7,rev:1292.3},mar:{cmv:370.1,alq:221.1,rrhh:188.4,bancos:72.2,gni:313.9,rev:1498.7}};
+const COST_ENE_FEB={"Fixstation Abasto":{"ene":{"alq":5.78,"rrhh":6.07,"bancos":1.64,"gni":1.13},"feb":{"alq":5.95,"rrhh":5.95,"bancos":1.77,"gni":0.58}},"Fixstation Altoavellaneda":{"ene":{"alq":5.78,"rrhh":7.88,"bancos":3.02,"gni":0.94},"feb":{"alq":5.95,"rrhh":9.69,"bancos":1.72,"gni":1.06}},"Fixstation Altopalermo":{"ene":{"alq":10.68,"rrhh":6.75,"bancos":2.95,"gni":1.58},"feb":{"alq":10.98,"rrhh":6.81,"bancos":2.88,"gni":0.25}},"Fixstation Altorosario":{"ene":{"alq":5.01,"rrhh":5.15,"bancos":2.58,"gni":1.64},"feb":{"alq":6.05,"rrhh":5.04,"bancos":1.61,"gni":0.16}},"Fixstation Dot":{"ene":{"alq":4.67,"rrhh":4.3,"bancos":1.01,"gni":0.82},"feb":{"alq":4.8,"rrhh":8.0,"bancos":1.19,"gni":0.26}},"Fixstation Parquebrown":{"ene":{"alq":4.49,"rrhh":4.56,"bancos":0.51,"gni":0.63},"feb":{"alq":0.0,"rrhh":4.74,"bancos":1.34,"gni":1.64}},"Fixstation Plazaoeste":{"ene":{"alq":5.84,"rrhh":5.03,"bancos":0.85,"gni":0.56},"feb":{"alq":0.0,"rrhh":4.69,"bancos":1.14,"gni":0.37}},"Fixstation Unicenter":{"ene":{"alq":10.09,"rrhh":6.57,"bancos":2.78,"gni":0.77},"feb":{"alq":0.0,"rrhh":6.6,"bancos":3.43,"gni":0.65}},"Itrend Altoavellaneda":{"ene":{"alq":8.37,"rrhh":5.02,"bancos":1.65,"gni":0.7},"feb":{"alq":5.84,"rrhh":4.6,"bancos":0.58,"gni":0.24}},"Swoptech Abasto":{"ene":{"alq":5.83,"rrhh":5.33,"bancos":1.91,"gni":1.3},"feb":{"alq":6.07,"rrhh":6.53,"bancos":4.05,"gni":0.7}},"Swoptech Altoavellaneda":{"ene":{"alq":4.76,"rrhh":5.08,"bancos":1.77,"gni":0.71},"feb":{"alq":4.96,"rrhh":4.48,"bancos":1.45,"gni":0.37}},"Swoptech Altorosario":{"ene":{"alq":6.53,"rrhh":8.47,"bancos":1.41,"gni":1.39},"feb":{"alq":5.15,"rrhh":5.85,"bancos":0.64,"gni":0.27}},"The Icase Abasto":{"ene":{"alq":5.68,"rrhh":4.2,"bancos":1.76,"gni":1.03},"feb":{"alq":5.84,"rrhh":4.55,"bancos":1.31,"gni":0.22}},"The Icase Alcorta":{"ene":{"alq":4.99,"rrhh":5.81,"bancos":0.91,"gni":1.05},"feb":{"alq":4.23,"rrhh":4.58,"bancos":0.91,"gni":0.25}},"The Icase Altoavellaneda":{"ene":{"alq":8.69,"rrhh":6.61,"bancos":3.23,"gni":0.9},"feb":{"alq":6.69,"rrhh":7.62,"bancos":1.63,"gni":0.6}},"The Icase Altopalermo":{"ene":{"alq":15.45,"rrhh":7.45,"bancos":2.9,"gni":2.55},"feb":{"alq":11.82,"rrhh":6.81,"bancos":3.99,"gni":0.76}},"The Icase Altorosario":{"ene":{"alq":9.5,"rrhh":8.12,"bancos":2.71,"gni":2.17},"feb":{"alq":8.86,"rrhh":6.63,"bancos":2.21,"gni":0.43}},"The Icase Caballito":{"ene":{"alq":8.01,"rrhh":5.66,"bancos":0.98,"gni":1.1},"feb":{"alq":8.01,"rrhh":4.92,"bancos":1.24,"gni":1.62}},"The Icase Devoto":{"ene":{"alq":0.0,"rrhh":7.14,"bancos":1.05,"gni":0.65},"feb":{"alq":1.17,"rrhh":4.69,"bancos":0.83,"gni":0.19}},"The Icase Distritoarcos":{"ene":{"alq":4.78,"rrhh":5.34,"bancos":0.87,"gni":0.87},"feb":{"alq":4.92,"rrhh":5.04,"bancos":1.7,"gni":0.32}},"The Icase Dot":{"ene":{"alq":7.7,"rrhh":5.86,"bancos":2.55,"gni":1.99},"feb":{"alq":6.47,"rrhh":4.13,"bancos":2.25,"gni":0.35}},"The Icase Ezeiza":{"ene":{"alq":2.53,"rrhh":5.4,"bancos":0.68,"gni":7.54},"feb":{"alq":6.36,"rrhh":5.18,"bancos":0.6,"gni":5.83}},"The Icase Nordelta":{"ene":{"alq":4.09,"rrhh":6.47,"bancos":0.97,"gni":0.98},"feb":{"alq":5.5,"rrhh":5.25,"bancos":1.23,"gni":0.82}},"The Icase Parquebrown":{"ene":{"alq":4.92,"rrhh":5.75,"bancos":0.87,"gni":0.73},"feb":{"alq":0.0,"rrhh":4.75,"bancos":0.58,"gni":0.18}},"The Icase Plazaoeste":{"ene":{"alq":5.43,"rrhh":7.16,"bancos":1.81,"gni":1.04},"feb":{"alq":0.0,"rrhh":4.59,"bancos":1.38,"gni":0.48}},"The Icase Portallomas":{"ene":{"alq":4.4,"rrhh":5.17,"bancos":0.9,"gni":0.49},"feb":{"alq":0.0,"rrhh":4.73,"bancos":0.61,"gni":0.86}},"The Icase Portalpalermo":{"ene":{"alq":4.74,"rrhh":4.78,"bancos":0.6,"gni":0.55},"feb":{"alq":0.0,"rrhh":3.03,"bancos":0.58,"gni":0.19}},"The Icase Rivadavia":{"ene":{"alq":6.08,"rrhh":5.46,"bancos":0.71,"gni":0.64},"feb":{"alq":6.08,"rrhh":3.16,"bancos":0.77,"gni":0.83}},"The Icase San Miguel":{"ene":{"alq":3.48,"rrhh":5.21,"bancos":1.62,"gni":0.78},"feb":{"alq":3.58,"rrhh":5.02,"bancos":1.48,"gni":1.5}},"The Icase Unicenter":{"ene":{"alq":11.33,"rrhh":11.77,"bancos":5.38,"gni":3.4},"feb":{"alq":0.0,"rrhh":8.83,"bancos":7.35,"gni":1.02}}};
+function fmt$C(v){return '$'+(Math.round((v||0)*10)/10).toFixed(1).replace('.',',')+'M';}
+function fmtPctC(v){return (Math.round((v||0)*10)/10).toFixed(1)+'%';}
+function renderCostos(){
+  const store=document.getElementById('costosSelect').value;
+  const sd=STORE_DATA[store];
+  const el=document.getElementById('costos-content');
+  if(!sd){el.innerHTML='<p style="color:#e74c3c;padding:20px">Sin datos</p>';return;}
+  let data;
+  if(store==='Red Total'){data=COST_RT;}
+  else{
+    const cef=COST_ENE_FEB[store]||{ene:{alq:0,rrhh:0,bancos:0,gni:0},feb:{alq:0,rrhh:0,bancos:0,gni:0}};
+    const r1=x=>Math.round(x*10)/10;
+    data={
+      ene:{cmv:r1(sd.ene.rev-sd.ene.mb),alq:cef.ene.alq,rrhh:cef.ene.rrhh,bancos:cef.ene.bancos,gni:cef.ene.gni,rev:sd.ene.rev},
+      feb:{cmv:r1(sd.feb.rev-sd.feb.mb),alq:cef.feb.alq,rrhh:cef.feb.rrhh,bancos:cef.feb.bancos,gni:cef.feb.gni,rev:sd.feb.rev},
+      mar:{cmv:r1(sd.mar.rev-sd.mar.mb),alq:sd.mar.alq||0,rrhh:sd.mar.rrhh||0,bancos:sd.mar.bancos||0,gni:sd.mar.gni||0,rev:sd.mar.rev}
+    };
+  }
+  function row(label,key){
+    const e=data.ene[key],f=data.feb[key],m=data.mar[key];
+    const eP=data.ene.rev?e/data.ene.rev*100:0;
+    const fP=data.feb.rev?f/data.feb.rev*100:0;
+    const mP=data.mar.rev?m/data.mar.rev*100:0;
+    return '<tr><td>'+label+'</td>'+
+      '<td class="right">'+fmt$C(e)+'</td><td class="right">'+fmtPctC(eP)+'</td>'+
+      '<td class="right">'+fmt$C(f)+'</td><td class="right">'+fmtPctC(fP)+'</td>'+
+      '<td class="right">'+fmt$C(m)+'</td><td class="right">'+fmtPctC(mP)+'</td></tr>';
+  }
+  const toE=data.ene.alq+data.ene.rrhh+data.ene.bancos+data.ene.gni;
+  const toF=data.feb.alq+data.feb.rrhh+data.feb.bancos+data.feb.gni;
+  const toM=data.mar.alq+data.mar.rrhh+data.mar.bancos+data.mar.gni;
+  const tcE=data.ene.cmv+toE,tcF=data.feb.cmv+toF,tcM=data.mar.cmv+toM;
+  const rE=data.ene.rev,rF=data.feb.rev,rM=data.mar.rev;
+  el.innerHTML='<table><thead><tr>'+
+    '<th>Componente de Costo</th>'+
+    '<th class="right">Enero $</th><th class="right">Enero %</th>'+
+    '<th class="right">Febrero $</th><th class="right">Febrero %</th>'+
+    '<th class="right">Marzo $</th><th class="right">Marzo %</th>'+
+    '</tr></thead><tbody>'+
+    row('CMV (c/IVA)','cmv')+
+    row('Alquileres','alq')+
+    row('RRHH','rrhh')+
+    row('Bancos','bancos')+
+    row('GNI / Costos Centrales','gni')+
+    '<tr style="background:#eef2ff;font-weight:700"><td>Total Costos Operativos</td>'+
+    '<td class="right">'+fmt$C(toE)+'</td><td class="right">'+fmtPctC(rE?toE/rE*100:0)+'</td>'+
+    '<td class="right">'+fmt$C(toF)+'</td><td class="right">'+fmtPctC(rF?toF/rF*100:0)+'</td>'+
+    '<td class="right">'+fmt$C(toM)+'</td><td class="right">'+fmtPctC(rM?toM/rM*100:0)+'</td>'+
+    '</tr>'+
+    '<tr style="background:#1F3864;color:#fff;font-weight:700"><td>Total Costos (CMV + Operativos)</td>'+
+    '<td class="right">'+fmt$C(tcE)+'</td><td class="right">'+fmtPctC(rE?tcE/rE*100:0)+'</td>'+
+    '<td class="right">'+fmt$C(tcF)+'</td><td class="right">'+fmtPctC(rF?tcF/rF*100:0)+'</td>'+
+    '<td class="right">'+fmt$C(tcM)+'</td><td class="right">'+fmtPctC(rM?tcM/rM*100:0)+'</td>'+
+    '</tr>'+
+    '</tbody></table>';
+}
+
 // Init
 window.addEventListener('DOMContentLoaded', function() {
   renderPL();
+  renderCostos();
 });
 
 </script>
