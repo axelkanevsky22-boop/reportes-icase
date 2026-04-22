@@ -290,7 +290,7 @@ new Chart(document.getElementById('chartMargenes'),{type:'line',data:{labels:lab
     {label:"Servicios",data:[30.0,67.2,42.9],backgroundColor:"#FFC000",borderRadius:4,datalabels:{color:'#1F3864',font:{weight:'bold',size:12},formatter:function(v,ctx){return '$'+totals[ctx.dataIndex]+'M';},anchor:'end',align:'top'}}
   ]},options:{plugins:{datalabels:{},legend:{position:'bottom',labels:{font:{size:10}}}},scales:{x:{stacked:true},y:{stacked:true,max:1600,ticks:{callback:function(v){return'$'+v+'M'}}}}}});
 })();
-new Chart(document.getElementById('chartRN'),{type:'bar',data:{labels:labels,datasets:[{label:"Resultado Neto ($M)",data:[128.2,128.7,300.0],backgroundColor:["#4472C4","#4472C4","#27ae60"],borderRadius:6}]},options:{plugins:{datalabels:{anchor:'end',align:'top',color:'#1F3864',font:{weight:'bold',size:12},formatter:function(v,ctx){return'$'+v+'M ('+ [9.0,10.0,20.0][ctx.dataIndex]+'%)';}},legend:{display:false},tooltip:{callbacks:{label:function(c){return '$'+c.raw+'M ('+[9.0,10.0,20.0][c.dataIndex]+'%)';}}}},scales:{y:{beginAtZero:true,ticks:{callback:function(v){return'$'+v+'M'}}}}}});
+new Chart(document.getElementById('chartRN'),{type:'bar',data:{labels:labels,datasets:[{label:"Resultado Neto ($M)",data:[128.2,128.7,300.0],backgroundColor:["#4472C4","#4472C4","#27ae60"],borderRadius:6}]},options:{plugins:{datalabels:{anchor:'end',align:'top',color:'#1F3864',font:{weight:'bold',size:12},formatter:function(v,ctx){return'$'+v+'M ('+ [9.0,10.0,20.0][ctx.dataIndex]+'%)';}},legend:{display:false},tooltip:{callbacks:{label:function(c){return '$'+c.raw+'M ('+[9.0,10.0,20.0][c.dataIndex]+'%)';}}}},scales:{y:{beginAtZero:true,max:400,ticks:{callback:function(v){return'$'+v+'M'}}}}}});
 </script>
 <script>
 
