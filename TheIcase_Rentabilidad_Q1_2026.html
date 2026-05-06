@@ -163,40 +163,105 @@
 <div class="section-title">&#127919; Breakeven por Local &#8212; Q1 2026</div>
 <div class="card" style="padding:18px 22px">
   <p style="font-size:12px;color:#444;margin:0 0 14px;line-height:1.5">
-    <strong>Metodolog&iacute;a:</strong> Promedio mensual del Q1. Costos fijos del local (Alquiler + RRHH + GNI) divididos por el margen de contribuci&oacute;n (% del MB neto de comisiones bancarias) = facturaci&oacute;n m&iacute;nima mensual para resultado neto = $0. <strong>Cushion</strong> = cu&aacute;nto puede caer la facturaci&oacute;n antes de entrar en p&eacute;rdida operativa.
+    <strong>Metodolog&iacute;a:</strong> Promedio mensual del Q1. Toma <strong>todos los costos</strong> del local: <em>Fijos = MB &minus; UN &minus; Bancos</em> (alquiler + RRHH + GNI + impuestos + servicios + dem&aacute;s). <em>Margen Contribuci&oacute;n = (MB &minus; Bancos) / Rev</em>. <strong>BE = Fijos / MC%</strong> &mdash; facturaci&oacute;n m&iacute;nima mensual para que el resultado neto sea exactamente $0. <strong>Cushion</strong> = cu&aacute;nto puede caer la facturaci&oacute;n antes de entrar en p&eacute;rdida.
   </p>
-  <div style="display:flex;gap:12px;flex-wrap:wrap;margin-bottom:14px">
-    <div style="flex:1;min-width:140px;background:#fce4e4;padding:10px 14px;border-radius:6px"><div style="font-size:11px;color:#a63232">BAJO BREAKEVEN</div><div style="font-size:22px;font-weight:700;color:#a63232">1</div><div style="font-size:10px;color:#a63232">facturan menos que su m&iacute;nimo</div></div>
-    <div style="flex:1;min-width:140px;background:#fff4e0;padding:10px 14px;border-radius:6px"><div style="font-size:11px;color:#a8631a">AJUSTADO (&lt;25%)</div><div style="font-size:22px;font-weight:700;color:#a8631a">8</div><div style="font-size:10px;color:#a8631a">poco margen ante una ca&iacute;da</div></div>
-    <div style="flex:1;min-width:140px;background:#fff9d8;padding:10px 14px;border-radius:6px"><div style="font-size:11px;color:#7a6010">BIEN (25-40%)</div><div style="font-size:22px;font-weight:700;color:#7a6010">11</div><div style="font-size:10px;color:#7a6010">colch&oacute;n razonable</div></div>
-    <div style="flex:1;min-width:140px;background:#e0f4e6;padding:10px 14px;border-radius:6px"><div style="font-size:11px;color:#176c2a">S&Oacute;LIDO (&ge;40%)</div><div style="font-size:22px;font-weight:700;color:#176c2a">15</div><div style="font-size:10px;color:#176c2a">muy por encima del BE</div></div>
+  <div id="be-cards" style="display:flex;gap:12px;flex-wrap:wrap;margin-bottom:14px"></div>
+  <div style="overflow-x:auto">
+    <table id="be-table" style="width:100%;border-collapse:collapse;font-size:12px;min-width:780px">
+      <thead><tr style="background:#2F5496;color:#fff">
+        <th style="text-align:left;padding:8px 10px">Local</th>
+        <th class="right" style="padding:8px 10px">Fact./mes</th>
+        <th class="right" style="padding:8px 10px">MC%</th>
+        <th class="right" style="padding:8px 10px">Costo Fijo/mes</th>
+        <th class="right" style="padding:8px 10px">BE/mes</th>
+        <th class="right" style="padding:8px 10px">Cushion $/mes</th>
+        <th class="right" style="padding:8px 10px">Cushion %</th>
+        <th class="right" style="padding:8px 10px">Estado</th>
+      </tr></thead>
+      <tbody id="be-body"></tbody>
+    </table>
   </div>
-  <table style="width:100%;border-collapse:collapse;font-size:12px">
-    <thead><tr style="background:#2F5496;color:#fff">
-      <th style="text-align:left;padding:8px 10px">Local</th>
-      <th class="right" style="padding:8px 10px">Fact./mes</th>
-      <th class="right" style="padding:8px 10px">MC%</th>
-      <th class="right" style="padding:8px 10px">Costo Fijo/mes</th>
-      <th class="right" style="padding:8px 10px">BE/mes</th>
-      <th class="right" style="padding:8px 10px">Cushion $/mes</th>
-      <th class="right" style="padding:8px 10px">Cushion %</th>
-      <th class="right" style="padding:8px 10px">Estado</th>
-    </tr></thead>
-    <tbody><tr><td>Itrend Altoavellaneda</td><td class="right">$20.5M</td><td class="right">72.3%</td><td class="right">$15.2M</td><td class="right"><strong>$21.0M</strong></td><td class="right">-$0.4M</td><td class="right" style="background:#fce4e4;color:#a63232;font-weight:600;padding:6px 10px;border-radius:4px">-2.2%</td><td class="right" style="font-size:10px">BAJO BE</td></tr><tr><td>Swoptech Altoavellaneda</td><td class="right">$19.3M</td><td class="right">70.8%</td><td class="right">$11.3M</td><td class="right"><strong>$16.0M</strong></td><td class="right">$3.3M</td><td class="right" style="background:#fff4e0;color:#a8631a;font-weight:600;padding:6px 10px;border-radius:4px">+17.3%</td><td class="right" style="font-size:10px">AJUSTADO</td></tr><tr><td>The Icase Portallomas</td><td class="right">$19.5M</td><td class="right">72.8%</td><td class="right">$11.4M</td><td class="right"><strong>$15.7M</strong></td><td class="right">$3.8M</td><td class="right" style="background:#fff4e0;color:#a8631a;font-weight:600;padding:6px 10px;border-radius:4px">+19.6%</td><td class="right" style="font-size:10px">AJUSTADO</td></tr><tr><td>The Icase Caballito</td><td class="right">$27.5M</td><td class="right">72.0%</td><td class="right">$15.7M</td><td class="right"><strong>$21.8M</strong></td><td class="right">$5.7M</td><td class="right" style="background:#fff4e0;color:#a8631a;font-weight:600;padding:6px 10px;border-radius:4px">+20.8%</td><td class="right" style="font-size:10px">AJUSTADO</td></tr><tr><td>The Icase Altoavellaneda 2</td><td class="right">$33.1M</td><td class="right">69.2%</td><td class="right">$18.0M</td><td class="right"><strong>$26.0M</strong></td><td class="right">$7.1M</td><td class="right" style="background:#fff4e0;color:#a8631a;font-weight:600;padding:6px 10px;border-radius:4px">+21.5%</td><td class="right" style="font-size:10px">AJUSTADO</td></tr><tr><td>The Icase Portalpalermo</td><td class="right">$17.4M</td><td class="right">75.8%</td><td class="right">$10.2M</td><td class="right"><strong>$13.5M</strong></td><td class="right">$3.9M</td><td class="right" style="background:#fff4e0;color:#a8631a;font-weight:600;padding:6px 10px;border-radius:4px">+22.4%</td><td class="right" style="font-size:10px">AJUSTADO</td></tr><tr><td>Fixstation Plazaoeste</td><td class="right">$25.9M</td><td class="right">67.9%</td><td class="right">$13.4M</td><td class="right"><strong>$19.8M</strong></td><td class="right">$6.2M</td><td class="right" style="background:#fff4e0;color:#a8631a;font-weight:600;padding:6px 10px;border-radius:4px">+23.8%</td><td class="right" style="font-size:10px">AJUSTADO</td></tr><tr><td>Swoptech Altorosario</td><td class="right">$27.6M</td><td class="right">71.4%</td><td class="right">$14.9M</td><td class="right"><strong>$20.9M</strong></td><td class="right">$6.7M</td><td class="right" style="background:#fff4e0;color:#a8631a;font-weight:600;padding:6px 10px;border-radius:4px">+24.3%</td><td class="right" style="font-size:10px">AJUSTADO</td></tr><tr><td>The Icase Devoto</td><td class="right">$25.1M</td><td class="right">71.8%</td><td class="right">$13.7M</td><td class="right"><strong>$19.0M</strong></td><td class="right">$6.1M</td><td class="right" style="background:#fff4e0;color:#a8631a;font-weight:600;padding:6px 10px;border-radius:4px">+24.4%</td><td class="right" style="font-size:10px">AJUSTADO</td></tr><tr><td>Fixstation Parquebrown</td><td class="right">$23.9M</td><td class="right">73.6%</td><td class="right">$13.2M</td><td class="right"><strong>$17.9M</strong></td><td class="right">$6.0M</td><td class="right" style="background:#fff9d8;color:#7a6010;font-weight:600;padding:6px 10px;border-radius:4px">+25.1%</td><td class="right" style="font-size:10px">BIEN</td></tr><tr><td>The Icase Altoavellaneda</td><td class="right">$45.0M</td><td class="right">69.9%</td><td class="right">$23.6M</td><td class="right"><strong>$33.7M</strong></td><td class="right">$11.3M</td><td class="right" style="background:#fff9d8;color:#7a6010;font-weight:600;padding:6px 10px;border-radius:4px">+25.1%</td><td class="right" style="font-size:10px">BIEN</td></tr><tr><td>The Icase Ezeiza</td><td class="right">$26.9M</td><td class="right">71.4%</td><td class="right">$14.4M</td><td class="right"><strong>$20.1M</strong></td><td class="right">$6.8M</td><td class="right" style="background:#fff9d8;color:#7a6010;font-weight:600;padding:6px 10px;border-radius:4px">+25.2%</td><td class="right" style="font-size:10px">BIEN</td></tr><tr><td>The Icase Plazaoeste</td><td class="right">$28.6M</td><td class="right">72.1%</td><td class="right">$15.4M</td><td class="right"><strong>$21.4M</strong></td><td class="right">$7.2M</td><td class="right" style="background:#fff9d8;color:#7a6010;font-weight:600;padding:6px 10px;border-radius:4px">+25.2%</td><td class="right" style="font-size:10px">BIEN</td></tr><tr><td>Fixstation Altoavellaneda</td><td class="right">$40.0M</td><td class="right">72.1%</td><td class="right">$21.5M</td><td class="right"><strong>$29.8M</strong></td><td class="right">$10.2M</td><td class="right" style="background:#fff9d8;color:#7a6010;font-weight:600;padding:6px 10px;border-radius:4px">+25.4%</td><td class="right" style="font-size:10px">BIEN</td></tr><tr><td>The Icase Parquebrown</td><td class="right">$22.7M</td><td class="right">74.9%</td><td class="right">$12.6M</td><td class="right"><strong>$16.9M</strong></td><td class="right">$5.8M</td><td class="right" style="background:#fff9d8;color:#7a6010;font-weight:600;padding:6px 10px;border-radius:4px">+25.7%</td><td class="right" style="font-size:10px">BIEN</td></tr><tr><td>The Icase San Miguel</td><td class="right">$27.0M</td><td class="right">61.2%</td><td class="right">$12.1M</td><td class="right"><strong>$19.8M</strong></td><td class="right">$7.2M</td><td class="right" style="background:#fff9d8;color:#7a6010;font-weight:600;padding:6px 10px;border-radius:4px">+26.5%</td><td class="right" style="font-size:10px">BIEN</td></tr><tr><td>The Icase Abasto</td><td class="right">$36.8M</td><td class="right">70.9%</td><td class="right">$19.0M</td><td class="right"><strong>$26.8M</strong></td><td class="right">$10.0M</td><td class="right" style="background:#fff9d8;color:#7a6010;font-weight:600;padding:6px 10px;border-radius:4px">+27.3%</td><td class="right" style="font-size:10px">BIEN</td></tr><tr><td>Fixstation Abasto</td><td class="right">$37.0M</td><td class="right">70.9%</td><td class="right">$18.6M</td><td class="right"><strong>$26.2M</strong></td><td class="right">$10.7M</td><td class="right" style="background:#fff9d8;color:#7a6010;font-weight:600;padding:6px 10px;border-radius:4px">+29.0%</td><td class="right" style="font-size:10px">BIEN</td></tr><tr><td>The Icase Distritoarcos</td><td class="right">$32.5M</td><td class="right">72.5%</td><td class="right">$16.4M</td><td class="right"><strong>$22.6M</strong></td><td class="right">$9.9M</td><td class="right" style="background:#fff9d8;color:#7a6010;font-weight:600;padding:6px 10px;border-radius:4px">+30.4%</td><td class="right" style="font-size:10px">BIEN</td></tr><tr><td>The Icase Rivadavia</td><td class="right">$22.2M</td><td class="right">72.8%</td><td class="right">$11.1M</td><td class="right"><strong>$15.3M</strong></td><td class="right">$6.9M</td><td class="right" style="background:#fff9d8;color:#7a6010;font-weight:600;padding:6px 10px;border-radius:4px">+31.1%</td><td class="right" style="font-size:10px">BIEN</td></tr><tr><td>Fixstation Dot</td><td class="right">$31.6M</td><td class="right">75.2%</td><td class="right">$14.0M</td><td class="right"><strong>$18.6M</strong></td><td class="right">$13.0M</td><td class="right" style="background:#e0f4e6;color:#176c2a;font-weight:600;padding:6px 10px;border-radius:4px">+41.0%</td><td class="right" style="font-size:10px">SÓLIDO</td></tr><tr><td>The Icase Alcorta</td><td class="right">$31.3M</td><td class="right">75.4%</td><td class="right">$13.8M</td><td class="right"><strong>$18.3M</strong></td><td class="right">$13.0M</td><td class="right" style="background:#e0f4e6;color:#176c2a;font-weight:600;padding:6px 10px;border-radius:4px">+41.4%</td><td class="right" style="font-size:10px">SÓLIDO</td></tr><tr><td>Fixstation Altopalermo</td><td class="right">$62.3M</td><td class="right">69.0%</td><td class="right">$23.3M</td><td class="right"><strong>$33.7M</strong></td><td class="right">$28.6M</td><td class="right" style="background:#e0f4e6;color:#176c2a;font-weight:600;padding:6px 10px;border-radius:4px">+45.9%</td><td class="right" style="font-size:10px">SÓLIDO</td></tr><tr><td>Swoptech Abasto</td><td class="right">$38.2M</td><td class="right">67.9%</td><td class="right">$13.3M</td><td class="right"><strong>$19.6M</strong></td><td class="right">$18.6M</td><td class="right" style="background:#e0f4e6;color:#176c2a;font-weight:600;padding:6px 10px;border-radius:4px">+48.7%</td><td class="right" style="font-size:10px">SÓLIDO</td></tr><tr><td>The Icase Altorosario 2</td><td class="right">$29.0M</td><td class="right">75.9%</td><td class="right">$11.3M</td><td class="right"><strong>$14.8M</strong></td><td class="right">$14.2M</td><td class="right" style="background:#e0f4e6;color:#176c2a;font-weight:600;padding:6px 10px;border-radius:4px">+48.8%</td><td class="right" style="font-size:10px">SÓLIDO</td></tr><tr><td>Fixstation Altorosario</td><td class="right">$45.5M</td><td class="right">71.4%</td><td class="right">$16.6M</td><td class="right"><strong>$23.2M</strong></td><td class="right">$22.3M</td><td class="right" style="background:#e0f4e6;color:#176c2a;font-weight:600;padding:6px 10px;border-radius:4px">+49.0%</td><td class="right" style="font-size:10px">SÓLIDO</td></tr><tr><td>Fixstation Unicenter 2</td><td class="right">$74.7M</td><td class="right">65.2%</td><td class="right">$24.6M</td><td class="right"><strong>$37.7M</strong></td><td class="right">$37.1M</td><td class="right" style="background:#e0f4e6;color:#176c2a;font-weight:600;padding:6px 10px;border-radius:4px">+49.6%</td><td class="right" style="font-size:10px">SÓLIDO</td></tr><tr><td>Fixstation Unicenter</td><td class="right">$64.1M</td><td class="right">68.2%</td><td class="right">$21.7M</td><td class="right"><strong>$31.8M</strong></td><td class="right">$32.3M</td><td class="right" style="background:#e0f4e6;color:#176c2a;font-weight:600;padding:6px 10px;border-radius:4px">+50.4%</td><td class="right" style="font-size:10px">SÓLIDO</td></tr><tr><td>The Icase Nordelta</td><td class="right">$36.0M</td><td class="right">78.0%</td><td class="right">$13.8M</td><td class="right"><strong>$17.7M</strong></td><td class="right">$18.2M</td><td class="right" style="background:#e0f4e6;color:#176c2a;font-weight:600;padding:6px 10px;border-radius:4px">+50.7%</td><td class="right" style="font-size:10px">SÓLIDO</td></tr><tr><td>The Icase Caballito 2</td><td class="right">$15.0M</td><td class="right">73.0%</td><td class="right">$5.1M</td><td class="right"><strong>$7.0M</strong></td><td class="right">$8.0M</td><td class="right" style="background:#e0f4e6;color:#176c2a;font-weight:600;padding:6px 10px;border-radius:4px">+53.6%</td><td class="right" style="font-size:10px">SÓLIDO</td></tr><tr><td>The Icase Altopalermo</td><td class="right">$96.1M</td><td class="right">66.9%</td><td class="right">$28.1M</td><td class="right"><strong>$42.1M</strong></td><td class="right">$54.0M</td><td class="right" style="background:#e0f4e6;color:#176c2a;font-weight:600;padding:6px 10px;border-radius:4px">+56.2%</td><td class="right" style="font-size:10px">SÓLIDO</td></tr><tr><td>The Icase Abasto 2</td><td class="right">$65.0M</td><td class="right">62.0%</td><td class="right">$16.9M</td><td class="right"><strong>$27.2M</strong></td><td class="right">$37.8M</td><td class="right" style="background:#e0f4e6;color:#176c2a;font-weight:600;padding:6px 10px;border-radius:4px">+58.1%</td><td class="right" style="font-size:10px">SÓLIDO</td></tr><tr><td>The Icase Unicenter</td><td class="right">$123.4M</td><td class="right">66.2%</td><td class="right">$33.8M</td><td class="right"><strong>$51.1M</strong></td><td class="right">$72.3M</td><td class="right" style="background:#e0f4e6;color:#176c2a;font-weight:600;padding:6px 10px;border-radius:4px">+58.6%</td><td class="right" style="font-size:10px">SÓLIDO</td></tr><tr><td>The Icase Altorosario</td><td class="right">$59.7M</td><td class="right">74.3%</td><td class="right">$17.4M</td><td class="right"><strong>$23.5M</strong></td><td class="right">$36.3M</td><td class="right" style="background:#e0f4e6;color:#176c2a;font-weight:600;padding:6px 10px;border-radius:4px">+60.7%</td><td class="right" style="font-size:10px">SÓLIDO</td></tr><tr><td>The Icase Dot</td><td class="right">$60.7M</td><td class="right">74.3%</td><td class="right">$16.1M</td><td class="right"><strong>$21.7M</strong></td><td class="right">$39.0M</td><td class="right" style="background:#e0f4e6;color:#176c2a;font-weight:600;padding:6px 10px;border-radius:4px">+64.2%</td><td class="right" style="font-size:10px">SÓLIDO</td></tr></tbody>
-  </table>
-  <p style="font-size:10px;color:#888;margin-top:10px">* Valores en $M ARS, promedio mensual sobre Q1 2026. MC% = (MB - Bancos) / Facturaci&oacute;n. BE = (Alquiler + RRHH + GNI) / MC%. Cushion negativo = local con resultado neto operativo deficitario en el mes promedio.</p>
+  <p style="font-size:10px;color:#888;margin-top:10px">* Valores en $M ARS, promedio mensual sobre Q1 2026. Variables consideradas: CMV (cost of goods) y Bancos (comisiones de tarjetas) escalan con facturaci&oacute;n. Todo lo dem&aacute;s (alquiler, RRHH, GNI, impuestos, servicios, etc.) se trata como fijo. Si alguno de esos rubros tiene componente variable real (ej. impuestos sobre ingresos brutos), el BE estimado es ligeramente conservador.</p>
 </div>
 
 <div class="card" style="padding:18px 22px;margin-top:14px;border-left:4px solid #2F5496">
   <h4 style="margin:0 0 10px;font-size:14px;color:#2F5496">Aplicaci&oacute;n estrat&eacute;gica</h4>
   <ul style="margin:0;padding-left:18px;font-size:12px;line-height:1.7">
-    <li><strong>Punto de ganancia:</strong> Cada local sabe a partir de qu&eacute; facturaci&oacute;n mensual empieza a generar utilidad. Por debajo del BE, todo el esfuerzo cubre estructura.</li>
-    <li><strong>Incentivos a vendedores:</strong> Los bonos por venta tienen sentido recargar a partir del BE. Vender por debajo de BE no genera margen para premiar.</li>
-    <li><strong>Metas comerciales:</strong> Mensual m&iacute;nimo = BE/mes. Meta de utilidad = BE + objetivo deseado / MC%. Ej: para que un local con BE $20M/mes deje $5M/mes, meta = $20M + $5M / 0,7 &asymp; $27M.</li>
-    <li><strong>Evaluaci&oacute;n de cierre:</strong> Locales por debajo de BE de forma sostenida (3+ meses) son candidatos a cierre o renegociaci&oacute;n agresiva de fijos. Si bajar el BE a niveles alcanzables requiere bajar fijos &gt;30%, el cierre puede ser m&aacute;s eficiente.</li>
-    <li><strong>L&iacute;mites de la m&eacute;trica:</strong> El BE asume CMV y Bancos como variables (% sobre rev) y el resto fijo. Si parte de RRHH es comisional o si el local opera con turnos parciales, ajustar la estructura fija real.</li>
+    <li><strong>Punto de ganancia:</strong> Cada local sabe exactamente a partir de qu&eacute; facturaci&oacute;n mensual genera utilidad. Por debajo del BE, todo el esfuerzo apenas cubre estructura.</li>
+    <li><strong>Incentivos a vendedores:</strong> Los bonos por venta tienen sentido recargarse a partir del BE. Vender por debajo no genera margen para premiar.</li>
+    <li><strong>Metas comerciales:</strong> M&iacute;nimo mensual = BE. Para una utilidad objetivo, meta = BE + (utilidad deseada / MC%). Ej: BE $20M y se quieren $5M de UN &rarr; meta = $20M + ($5M / 0,7) &asymp; $27M.</li>
+    <li><strong>Evaluaci&oacute;n de cierre:</strong> Locales bajo BE de forma sostenida (3+ meses) son candidatos a cierre o renegociaci&oacute;n agresiva de fijos. Si bajar el BE a niveles alcanzables requiere recortar fijos &gt;30%, el cierre puede ser m&aacute;s eficiente.</li>
+    <li><strong>L&iacute;mite del modelo:</strong> Asume que CMV y Bancos son los &uacute;nicos costos variables. Si parte de RRHH es comisional (variable), el BE real es m&aacute;s bajo que el estimado. Refinar caso a caso si aplica.</li>
   </ul>
 </div>
+
+<script>
+(function(){
+  function renderBE(){
+    if(typeof STORE_DATA==='undefined' || typeof COST_ENE_FEB==='undefined') return;
+    const rows=[];
+    for(const k of Object.keys(STORE_DATA)){
+      if(k==='Red Total') continue;
+      const v=STORE_DATA[k];
+      if(!v.q1 || !v.mar) continue;
+      const ef=COST_ENE_FEB[k];
+      if(!ef) continue;
+      const bancos_q1=(ef.ene.bancos||0)+(ef.feb.bancos||0)+(v.mar.bancos||0);
+      const rev=v.q1.rev, mb=v.q1.mb, un=v.q1.un;
+      const fixed=mb-un-bancos_q1;
+      const cm=(mb-bancos_q1)/rev;
+      const be=fixed/cm;
+      const rev_m=rev/3, be_m=be/3, fix_m=fixed/3;
+      const cush=rev_m-be_m, cushp=(rev_m-be_m)/rev_m*100;
+      rows.push({n:k,rev:rev_m,cm:cm*100,fix:fix_m,be:be_m,cm$:cush,cmp:cushp});
+    }
+    rows.sort((a,b)=>a.cmp-b.cmp);
+    const fmt$=v=>{const s=v<0?'-':'';return s+'$'+Math.abs(v).toFixed(1)+'M';};
+    const fmtP=v=>(v>=0?'+':'')+v.toFixed(1)+'%';
+    const colorOf=cmp=>{
+      if(cmp<0) return 'background:#fce4e4;color:#a63232';
+      if(cmp<10) return 'background:#fff4e0;color:#a8631a';
+      if(cmp<25) return 'background:#fff9d8;color:#7a6010';
+      return 'background:#e0f4e6;color:#176c2a';
+    };
+    const labelOf=cmp=>{
+      if(cmp<0) return 'BAJO BE';
+      if(cmp<10) return 'CRITICO';
+      if(cmp<25) return 'AJUSTADO';
+      return 'SOLIDO';
+    };
+    let body='';
+    for(const r of rows){
+      const sty=colorOf(r.cmp);
+      body+='<tr>'+
+        '<td style="padding:6px 10px">'+r.n+'</td>'+
+        '<td class="right" style="padding:6px 10px">'+fmt$(r.rev)+'</td>'+
+        '<td class="right" style="padding:6px 10px">'+r.cm.toFixed(1)+'%</td>'+
+        '<td class="right" style="padding:6px 10px">'+fmt$(r.fix)+'</td>'+
+        '<td class="right" style="padding:6px 10px"><strong>'+fmt$(r.be)+'</strong></td>'+
+        '<td class="right" style="padding:6px 10px">'+fmt$(r.cm$)+'</td>'+
+        '<td class="right" style="padding:6px 10px;'+sty+';font-weight:600;border-radius:4px">'+fmtP(r.cmp)+'</td>'+
+        '<td class="right" style="padding:6px 10px;font-size:10px">'+labelOf(r.cmp)+'</td>'+
+        '</tr>';
+    }
+    document.getElementById('be-body').innerHTML=body;
+    const below=rows.filter(r=>r.cmp<0).length;
+    const crit=rows.filter(r=>r.cmp>=0&&r.cmp<10).length;
+    const adj=rows.filter(r=>r.cmp>=10&&r.cmp<25).length;
+    const sol=rows.filter(r=>r.cmp>=25).length;
+    const cards='<div style="flex:1;min-width:140px;background:#fce4e4;padding:10px 14px;border-radius:6px"><div style="font-size:11px;color:#a63232">BAJO BREAKEVEN</div><div style="font-size:22px;font-weight:700;color:#a63232">'+below+'</div><div style="font-size:10px;color:#a63232">facturan menos que su m&iacute;nimo</div></div>'+
+                 '<div style="flex:1;min-width:140px;background:#fff4e0;padding:10px 14px;border-radius:6px"><div style="font-size:11px;color:#a8631a">CR&Iacute;TICO (&lt;10%)</div><div style="font-size:22px;font-weight:700;color:#a8631a">'+crit+'</div><div style="font-size:10px;color:#a8631a">muy poco margen ante una ca&iacute;da</div></div>'+
+                 '<div style="flex:1;min-width:140px;background:#fff9d8;padding:10px 14px;border-radius:6px"><div style="font-size:11px;color:#7a6010">AJUSTADO (10-25%)</div><div style="font-size:22px;font-weight:700;color:#7a6010">'+adj+'</div><div style="font-size:10px;color:#7a6010">colch&oacute;n moderado</div></div>'+
+                 '<div style="flex:1;min-width:140px;background:#e0f4e6;padding:10px 14px;border-radius:6px"><div style="font-size:11px;color:#176c2a">S&Oacute;LIDO (&ge;25%)</div><div style="font-size:22px;font-weight:700;color:#176c2a">'+sol+'</div><div style="font-size:10px;color:#176c2a">colch&oacute;n c&oacute;modo</div></div>';
+    document.getElementById('be-cards').innerHTML=cards;
+  }
+  if(document.readyState==='loading'){
+    document.addEventListener('DOMContentLoaded',renderBE);
+  } else {
+    setTimeout(renderBE,0);
+  }
+})();
+</script>
 
 <div class="section-title">&#128269; Principales Hallazgos, Conclusiones y Comparativas Q1 2026</div>
 
